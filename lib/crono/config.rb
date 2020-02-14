@@ -10,7 +10,8 @@ module Crono
     PROCESS_NAME = 'crono'
 
     attr_accessor :cronotab, :logfile, :pidfile, :piddir, :process_name,
-                  :monitor, :daemonize, :deprecated_daemonize, :environment
+                  :monitor, :daemonize, :deprecated_daemonize, :environment,
+                  :lifecycle_events
 
     def initialize
       self.cronotab = CRONOTAB
@@ -21,6 +22,7 @@ module Crono
       self.deprecated_daemonize = false
       self.monitor = false
       self.environment = ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'development'
+      self.lifecycle_events = { startup: [] }
     end
 
     def pidfile=(pidfile)
@@ -31,6 +33,12 @@ module Crono
 
     def pidfile
       @pidfile || (deprecated_daemonize ? PIDFILE : nil)
+    end
+
+    def on(event, &block)
+      raise ArgumentError, "Symbols only please: #{event}" unless event.is_a?(Symbol)
+      raise ArgumentError, "Invalid event name: #{event}" unless self.lifecycle_events.key?(event)
+      self.lifecycle_events[event] << block
     end
   end
 end

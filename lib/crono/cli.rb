@@ -16,6 +16,12 @@ module Crono
 
     COMMANDS = %w(start stop restart run zap reload status)
 
+    PROCTITLES = [
+      proc { "crono" },
+      proc { Crono::VERSION },
+      proc { |me, data| "[#{data["jobs"]} jobs in queue]" },
+    ]
+
     attr_accessor :config
 
     def initialize
@@ -123,12 +129,19 @@ module Crono
     end
 
     def start_working_loop
+      fire_event(:startup, reraise: true)
       loop do
         next_time, jobs = Crono.scheduler.next_jobs
         now = Time.zone.now
+        heartbeat(jobs.size)
         sleep(next_time - now) if next_time > now
         jobs.each(&:perform)
       end
+    end
+
+    def heartbeat(jobs)
+      data = { 'jobs' => jobs }
+      $0 = PROCTITLES.map { |proc| proc.call(self, data) }.compact.join(" ")
     end
 
     def parse_options(argv)
@@ -172,6 +185,23 @@ module Crono
     def parse_command(argv)
       if COMMANDS.include? argv[0]
         config.daemonize = true
+      end
+    end
+
+    # Taken from Sidekiq
+    # See: https://github.com/mperham/sidekiq/blob/master/lib/sidekiq/util.rb#L52
+    def fire_event(event, options = {})
+      reverse = options[:reverse]
+      reraise = options[:reraise]
+
+      arr = config.lifecycle_events[event]
+      arr.reverse! if reverse
+      arr.each do |block|
+        begin
+          block.call
+        rescue ex => e
+          raise ex if reraise
+        end
       end
     end
 
