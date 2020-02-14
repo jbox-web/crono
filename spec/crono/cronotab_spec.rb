@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Crono::Cronotab do
+RSpec.describe Crono::Cronotab do
   describe '#process' do
     it 'should load cronotab file' do
       cronotab_path = File.expand_path('../assets/good_cronotab.rb', __FILE__)

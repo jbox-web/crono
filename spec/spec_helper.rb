@@ -1,24 +1,27 @@
-require 'bundler/setup'
-Bundler.setup
-
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-
+require 'simplecov'
 require 'timecop'
-require 'byebug'
-require 'crono'
-require 'generators/crono/install/templates/migrations/create_crono_jobs.rb'
+require 'daemons'
+require 'rack/test'
+
+# Start SimpleCov
+SimpleCov.start do
+  add_filter 'spec/'
+end
+
+# Load Rails dummy app
+ENV['RAILS_ENV'] = 'test'
+require File.expand_path('dummy/config/environment.rb', __dir__)
+
+# Load test gems
+require 'rspec/rails'
+
+# Load our own config
+require_relative 'config_rspec'
 
 # setting default time zone
 # In Rails project, Time.zone_default equals "UTC"
 Time.zone_default = Time.find_zone("UTC")
-
-ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: 'file::memory:?cache=shared'
-)
-
-ActiveRecord::Base.logger = Logger.new(STDOUT)
-CreateCronoJobs.up
+# ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 class TestJob
   def perform

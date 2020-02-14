@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Crono::Job do
+RSpec.describe Crono::Job do
   let(:period) { Crono::Period.new(2.day, at: '15:00') }
   let(:job_args) {[{some: 'data'}]}
   let(:job) { Crono::Job.new(TestJob, period, []) }

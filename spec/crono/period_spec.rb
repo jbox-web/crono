@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Crono::Period do
+RSpec.describe Crono::Period do
   describe '#description' do
     it 'should return period description' do
       @period = Crono::Period.new(1.week, on: :monday, at: '15:20')

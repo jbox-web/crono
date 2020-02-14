@@ -1,9 +1,10 @@
 require 'spec_helper'
-require 'rack/test'
-include Rack::Test::Methods
 
-describe Crono::Web do
+RSpec.describe Crono::Web do
+
   let(:app) { Crono::Web }
+
+  include Rack::Test::Methods
 
   before do
     Crono::CronoJob.destroy_all

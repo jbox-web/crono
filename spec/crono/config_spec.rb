@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Crono::Config do
+RSpec.describe Crono::Config do
   let(:config) { Crono::Config.new }
   describe '#initialize' do
     it 'should initialize with default configuration options' do

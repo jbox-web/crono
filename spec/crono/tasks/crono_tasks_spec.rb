@@ -4,7 +4,7 @@ require 'rake'
 load 'tasks/crono_tasks.rake'
 Rake::Task.define_task(:environment)
 
-describe 'rake' do
+RSpec.describe 'rake' do
   describe 'crono:clean' do
     it 'should clean unused tasks from DB' do
       Crono::CronoJob.create!(job_id: 'used_job')

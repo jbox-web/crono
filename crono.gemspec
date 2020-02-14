@@ -1,34 +1,34 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'crono/version'
+# frozen_string_literal: true
 
-Gem::Specification.new do |spec|
-  spec.name          = 'crono'
-  spec.version       = Crono::VERSION
-  spec.authors       = ['Dzmitry Plashchynski']
-  spec.email         = ['plashchynski@gmail.com']
+require_relative 'lib/crono/version'
 
-  spec.summary       = 'Job scheduler for Rails'
-  spec.description   = 'A time-based background job scheduler daemon (just like Cron) for Rails'
-  spec.homepage      = 'https://github.com/plashchynski/crono'
-  spec.license       = 'Apache-2.0'
+Gem::Specification.new do |s|
+  s.name        = 'crono'
+  s.version     = Crono::VERSION
+  s.platform    = Gem::Platform::RUBY
+  s.authors     = ['Dzmitry Plashchynski']
+  s.email       = ['plashchynski@gmail.com']
+  s.homepage    = 'https://github.com/plashchynski/crono'
+  s.summary     = 'Job scheduler for Rails'
+  s.description = 'A time-based background job scheduler daemon (just like Cron) for Rails'
+  s.license     = 'Apache-2.0'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = 'exe' # http://bundler.io/blog/2015/03/20/moving-bins-to-exe.html
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib']
+  s.required_ruby_version = '>= 2.4.4'
 
-  spec.add_runtime_dependency 'activesupport', '>= 4.0'
-  spec.add_runtime_dependency 'activerecord', '>= 4.0'
-  spec.add_development_dependency 'rake', '>= 10.0'
-  spec.add_development_dependency 'bundler', '>= 1.0.0'
-  spec.add_development_dependency 'rspec', '>= 3.0'
-  spec.add_development_dependency 'timecop', '>= 0.7'
-  spec.add_development_dependency 'sqlite3'
-  spec.add_development_dependency 'byebug'
-  spec.add_development_dependency 'sinatra'
-  spec.add_development_dependency 'haml'
-  spec.add_development_dependency 'rack-test'
-  spec.add_development_dependency 'daemons'
+  s.files = `git ls-files`.split("\n")
+
+  s.bindir      = 'exe'
+  s.executables = ['crono']
+
+  s.add_runtime_dependency 'rails', '>= 5.0'
+
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'timecop'
+  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'sinatra'
+  s.add_development_dependency 'haml'
+  s.add_development_dependency 'rack-test'
+  s.add_development_dependency 'daemons'
+  s.add_development_dependency 'simplecov'
 end

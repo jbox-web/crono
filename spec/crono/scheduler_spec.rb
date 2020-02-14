@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Crono::Scheduler do
+RSpec.describe Crono::Scheduler do
   let(:scheduler) { Crono::Scheduler.new }
 
   describe '#add_job' do

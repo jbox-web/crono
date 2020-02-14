@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Crono::CronoJob do
+RSpec.describe Crono::CronoJob do
   let(:valid_attrs) do
     {
       job_id: 'Perform TestJob every 3 days'
@@ -17,7 +17,7 @@ describe Crono::CronoJob do
     Crono::CronoJob.create!(job_id: 'TestJob every 2 days')
     @crono_job = Crono::CronoJob.create(job_id: 'TestJob every 2 days')
     expect(@crono_job).not_to be_valid
-    expect(@crono_job.errors.added?(:job_id, :taken)).to be true
+    expect(@crono_job.errors[:job_id]).to eq ['has already been taken']
   end
 
   it 'should save job_id to DB' do

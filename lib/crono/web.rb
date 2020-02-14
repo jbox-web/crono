@@ -1,5 +1,6 @@
-require 'haml'
 require 'sinatra/base'
+require 'haml'
+
 require 'crono'
 
 module Crono
