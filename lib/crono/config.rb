@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crono
   # Crono::Config stores Crono configuration
   class Config
@@ -24,7 +26,7 @@ module Crono
     def pidfile=(pidfile)
       @pidfile = pidfile
       self.process_name = Pathname.new(pidfile).basename(".*").to_s
-      self.piddir = Pathname.new(pidfile).dirname.to_s 
+      self.piddir = Pathname.new(pidfile).dirname.to_s
     end
 
     def pidfile

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crono
   # Interval describes a period between two specific times of day
   class Interval

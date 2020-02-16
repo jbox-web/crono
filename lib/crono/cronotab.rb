@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crono
   class Cronotab
     def self.process(cronotab_path = nil)

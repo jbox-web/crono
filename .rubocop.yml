@@ -1,0 +1,7 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - bin/*
+    - lib/generators/**/*.rb
+    - spec/**/*
+    - examples/*

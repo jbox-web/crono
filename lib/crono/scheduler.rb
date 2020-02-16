@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crono
   # Scheduler is a container for job list and queue
   class Scheduler

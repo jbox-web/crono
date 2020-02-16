@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crono
   class Railtie < ::Rails::Railtie
     rake_tasks do

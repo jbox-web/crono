@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crono
   # TimeOfDay describes a certain hour and minute (on any day)
   class TimeOfDay

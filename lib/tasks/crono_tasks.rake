@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :crono do
   desc 'Clean unused job stats from DB'
   task clean: :environment do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crono
   # Period describe frequency of jobs
   class Period

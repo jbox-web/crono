@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Crono
   # Crono::PerformerProxy is a proxy used in cronotab.rb semantic
   class PerformerProxy
