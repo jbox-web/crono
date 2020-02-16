@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Crono
-  mattr_accessor :logger
-
   # Crono::Logging is a standart Ruby logger wrapper
   module Logging
     def logfile=(logfile)

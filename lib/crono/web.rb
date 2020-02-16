@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# require external dependencies
 require 'sinatra/base'
 require 'haml'
 
+# require ourself
 require 'crono'
 
 module Crono

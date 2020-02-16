@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.executables = ['crono']
 
   s.add_runtime_dependency 'rails', '>= 5.0'
+  s.add_runtime_dependency 'zeitwerk'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec-rails'

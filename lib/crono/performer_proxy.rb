@@ -25,8 +25,4 @@ module Crono
       self
     end
   end
-
-  def self.perform(performer, *job_args)
-    PerformerProxy.new(performer, Crono.scheduler, job_args)
-  end
 end

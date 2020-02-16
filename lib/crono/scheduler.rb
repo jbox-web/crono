@@ -18,6 +18,4 @@ module Crono
       jobs.group_by(&:next).sort_by {|time,_| time }.first
     end
   end
-
-  mattr_accessor :scheduler
 end

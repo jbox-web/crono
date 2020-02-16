@@ -2,8 +2,11 @@
 
 Thread.abort_on_exception = true
 
-require 'crono'
+# require external dependencies
 require 'optparse'
+
+# require ourself
+require 'crono'
 
 module Crono
   # Crono::CLI - The main class for the crono daemon exacutable `bin/crono`
