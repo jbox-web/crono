@@ -1,3 +1,16 @@
+1.2.0
+-----------
+
+- Test with Ruby 2.4/2.5/2.6/2.7
+- Test with Rails 5.x/6.x
+- Switch to Zeitwerk to load gem files
+- Add magic comment `# frozen_string_literal: true`
+- Add binstubs to ease development
+- Improve process name
+- Improve systemd support
+- Add Rubocop
+
+
 1.1.0
 -----------
 - Rails 3 and old Rubies are not supported anymore, sorry rails 3 guys...
