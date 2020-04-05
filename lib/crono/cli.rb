@@ -18,7 +18,7 @@ module Crono
 
     PROCTITLES = [
       proc { "crono" },
-      proc { Crono::VERSION },
+      proc { Crono::VERSION::STRING },
       proc { |me, data| "[#{data["jobs"]} jobs in queue]" },
     ]
 
