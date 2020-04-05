@@ -1,9 +1,10 @@
-Crono — Job scheduler for Rails
-------------------------
-[![Gem Version](https://badge.fury.io/rb/crono.svg)](http://badge.fury.io/rb/crono)
-[![Build Status](https://travis-ci.org/plashchynski/crono.svg?branch=master)](https://travis-ci.org/plashchynski/crono)
-[![Code Climate](https://codeclimate.com/github/plashchynski/crono/badges/gpa.svg)](https://codeclimate.com/github/plashchynski/crono)
-[![security](https://hakiri.io/github/plashchynski/crono/master.svg)](https://hakiri.io/github/plashchynski/crono/master)
+# Crono — Job scheduler for Rails
+
+[![GitHub license](https://img.shields.io/github/license/jbox-web/crono.svg)](https://github.com/jbox-web/crono/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/jbox-web/crono.svg)](https://github.com/jbox-web/crono/releases/latest)
+[![Build Status](https://travis-ci.com/jbox-web/crono.svg?branch=master)](https://travis-ci.com/jbox-web/crono)
+[![Code Climate](https://codeclimate.com/github/jbox-web/crono/badges/gpa.svg)](https://codeclimate.com/github/jbox-web/crono)
+[![Test Coverage](https://codeclimate.com/github/jbox-web/crono/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/crono/coverage)
 
 Crono is a time-based background job scheduler daemon (just like Cron) for Ruby on Rails.
 
@@ -29,12 +30,12 @@ Add the following line to your application's Gemfile:
 gem 'crono'
 ```
 
-Run the `bundle` command to install it.  
+Run the `bundle` command to install it.
 After you install Crono, you can run the generator:
 
     rails generate crono:install
 
-It will create a configuration file `config/cronotab.rb` and migration  
+It will create a configuration file `config/cronotab.rb` and migration
 Run the migration:
 
     rake db:migrate
@@ -171,8 +172,8 @@ There are "start", "stop", and "restart" commands.
 
 ## Web UI
 
-Crono comes with a Sinatra application that can display the current state of Crono jobs.  
-Add `sinatra` and `haml` to your Gemfile  
+Crono comes with a Sinatra application that can display the current state of Crono jobs.
+Add `sinatra` and `haml` to your Gemfile
 
 ```ruby
 gem 'haml'
