@@ -4,7 +4,7 @@ require_relative 'lib/crono/version'
 
 Gem::Specification.new do |s|
   s.name        = 'crono'
-  s.version     = Crono::VERSION
+  s.version     = Crono::VERSION::STRING
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Dzmitry Plashchynski']
   s.email       = ['plashchynski@gmail.com']
