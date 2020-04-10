@@ -63,7 +63,8 @@ module Crono
     end
 
     def load_rails
-      ENV['RACK_ENV'] = ENV['RAILS_ENV'] = config.environment
+      ENV['RACK_ENV']  = 'none'
+      ENV['RAILS_ENV'] = config.environment
       require 'rails'
       require File.expand_path('config/environment.rb')
       ::Rails.application.eager_load!
