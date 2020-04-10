@@ -29,8 +29,8 @@ module Crono
     end
 
 
-    def run
-      parse_options(ARGV)
+    def run(argv)
+      parse_options(argv)
 
       load_rails
 

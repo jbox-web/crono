@@ -4,7 +4,7 @@
 require 'crono/cli'
 
 begin
-  Crono::CLI.instance.run
+  Crono::CLI.instance.run(ARGV)
 rescue => e
   raise e if $DEBUG
   STDERR.puts e.message
