@@ -1,3 +1,10 @@
+1.3.0 (to come)
+-----
+* Drop support of Rails 5.0.x
+* Drop support of Ruby 2.4
+* Bump required Ruby version to 2.5.0
+* Add Guard gem to ease testing
+
 1.2.0
 -----
 * Test with Ruby 2.4/2.5/2.6/2.7
