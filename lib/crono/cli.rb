@@ -126,15 +126,5 @@ module Crono
         $0 = PROCTITLES.map { |proc| proc.call(self, data) }.compact.join(' ')
       end
 
-
-      def root
-        @root ||= rails_root_defined? ? ::Rails.root : DIR_PWD
-      end
-
-
-      def rails_root_defined?
-        defined?(::Rails.root)
-      end
-
   end
 end
