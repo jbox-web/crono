@@ -52,7 +52,7 @@ module Crono
     end
 
     def print_banner
-      logger.info "Loading Crono #{Crono::VERSION}"
+      logger.info "Loading Crono #{Crono::VERSION::STRING}"
       logger.info "Running in #{RUBY_DESCRIPTION}"
 
       logger.info 'Jobs:'
