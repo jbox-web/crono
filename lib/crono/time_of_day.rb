@@ -20,7 +20,8 @@ module Crono
     end
 
     def initialize(hour, min)
-      @hour, @min = hour, min
+      @hour = hour
+      @min  = min
     end
 
     def to_i

@@ -23,7 +23,7 @@ module Crono
     end
 
     def within?(value)
-      tod = ((value.is_a? TimeOfDay) ? value : TimeOfDay.parse(value))
+      tod = value.is_a?(TimeOfDay) ? value : TimeOfDay.parse(value)
       if @from <= @to
         tod >= @from && tod < @to
       else

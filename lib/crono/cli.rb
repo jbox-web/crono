@@ -15,9 +15,9 @@ module Crono
     include Logging
 
     PROCTITLES = [
-      proc { "crono" },
+      proc { 'crono' },
       proc { Crono::VERSION::STRING },
-      proc { |me, data| "[#{data["jobs"]} jobs in queue]" },
+      proc { |me, data| "[#{data['jobs']} jobs in queue]" },
     ]
 
     attr_accessor :config
@@ -90,14 +90,14 @@ module Crono
 
     def heartbeat(jobs)
       data = { 'jobs' => jobs }
-      $0 = PROCTITLES.map { |proc| proc.call(self, data) }.compact.join(" ")
+      $0 = PROCTITLES.map { |proc| proc.call(self, data) }.compact.join(' ')
     end
 
     def parse_options(argv)
       @argv = OptionParser.new do |opts|
-        opts.banner = "Usage: crono [options] [start|stop|restart|run]"
+        opts.banner = 'Usage: crono [options]'
 
-        opts.on("-C", "--cronotab PATH", "Path to cronotab file (Default: #{config.cronotab})") do |cronotab|
+        opts.on('-C', '--cronotab PATH', "Path to cronotab file (Default: #{config.cronotab})") do |cronotab|
           config.cronotab = cronotab
         end
 

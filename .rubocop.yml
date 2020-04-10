@@ -7,6 +7,9 @@ AllCops:
     - spec/**/*
     - examples/*
 
+Style/Documentation:
+  Enabled: false
+
 Lint/RaiseException:
   Enabled: true
 
@@ -21,3 +24,6 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Layout/LineLength:
+  Max: 110
