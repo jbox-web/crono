@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'crono/cli'
 
 RSpec.describe Crono::CLI do
   let(:cli) { Crono::CLI.instance }
