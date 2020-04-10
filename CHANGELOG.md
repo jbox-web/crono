@@ -4,6 +4,7 @@
 * Drop support of Ruby 2.4
 * Bump required Ruby version to 2.5.0
 * Add Guard gem to ease testing
+* Remove support of daemon mode. Use systemd or supervisor to manage crono.
 
 1.2.0
 -----

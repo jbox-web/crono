@@ -1,0 +1,55 @@
+#
+# This file tells systemd how to run Crono as a 24/7 long-running daemon.
+#
+# Customize this file based on your bundler location, app directory, etc.
+# Customize and copy this into /usr/lib/systemd/system (CentOS) or /lib/systemd/system (Ubuntu).
+# Then run:
+#   - systemctl enable crono
+#   - systemctl {start,stop,restart} crono
+#
+# This file corresponds to a single Crono process.  Add multiple copies
+# to run multiple processes (crono-1, crono-2, etc).
+#
+# Use `journalctl -u crono -rn 100` to view the last 100 lines of log output.
+#
+[Unit]
+Description=crono
+# start us only once the network and logging subsystems are available,
+# consider adding redis-server.service if Redis is local and systemd-managed.
+After=syslog.target network.target
+
+# See these pages for lots of options:
+#
+#   https://www.freedesktop.org/software/systemd/man/systemd.service.html
+#   https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+#
+# THOSE PAGES ARE CRITICAL FOR ANY LINUX DEVOPS WORK; read them multiple
+# times! systemd is a critical tool for all developers to know and understand.
+#
+[Service]
+Type=notify
+
+WorkingDirectory=/opt/myapp/current
+
+# If you use rbenv:
+ExecStart=/bin/bash -lc 'bin/crono -C config/cronotab.rb -e production'
+
+# If you use rvm or the system's ruby in production, don't.
+
+User=deploy
+Group=deploy
+UMask=0002
+
+# Greatly reduce Ruby memory fragmentation and heap usage
+# https://www.mikeperham.com/2018/04/25/taming-rails-memory-bloat/
+Environment=MALLOC_ARENA_MAX=2
+
+# output goes to /var/log/syslog
+StandardOutput=syslog
+StandardError=syslog
+
+# This will default to "bundler" if we don't specify it
+SyslogIdentifier=crono
+
+[Install]
+WantedBy=multi-user.target

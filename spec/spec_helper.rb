@@ -1,6 +1,5 @@
 require 'simplecov'
 require 'timecop'
-require 'daemons'
 require 'rack/test'
 
 # Start SimpleCov
