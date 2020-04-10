@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'daemons'
   s.add_development_dependency 'haml'
+  s.add_development_dependency 'pry'
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec-rails'
