@@ -3,8 +3,31 @@
 
 require 'crono/cli'
 
+def integrate_with_systemd(cli)
+  return unless ENV['NOTIFY_SOCKET']
+
+  Crono.logger.info 'Enabling systemd notification integration'
+
+  cli.config.on(:startup) do
+    Crono.logger.debug 'Emit systemd startup event'
+    Crono::SdNotify.ready
+  end
+
+  cli.config.on(:shutdown) do
+    Crono.logger.debug 'Emit systemd shutdown event'
+    Crono::SdNotify.stopping
+  end
+
+  Crono.start_watchdog if Crono::SdNotify.watchdog?
+end
+
 begin
-  Crono::CLI.instance.run(ARGV)
+  cli = Crono::CLI.instance
+  cli.parse
+
+  integrate_with_systemd(cli)
+
+  cli.run
 rescue => e
   raise e if $DEBUG
   STDERR.puts e.message

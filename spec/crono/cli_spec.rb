@@ -5,12 +5,14 @@ RSpec.describe Crono::CLI do
 
   describe '#run' do
     it 'should initialize rails with #load_rails and start working loop' do
+      expect(cli).to receive(:parse_options)
+      expect(cli).to receive(:initialize_logger)
       expect(cli).to receive(:load_rails)
       expect(cli).to receive(:have_jobs?).and_return(true)
-      expect(cli).to receive(:start_working_loop)
-      expect(cli).to receive(:parse_options)
+      expect(cli).to receive(:launch)
       expect(Crono::Cronotab).to receive(:process)
-      cli.run([])
+      cli.parse([])
+      cli.run
     end
   end
 

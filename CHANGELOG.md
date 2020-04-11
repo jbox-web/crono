@@ -5,6 +5,7 @@
 * Bump required Ruby version to 2.5.0
 * Add Guard gem to ease testing
 * Remove support of daemon mode. Use systemd or supervisor to manage crono.
+* Integrate with systemd's watchdog and notification features
 
 1.2.0
 -----

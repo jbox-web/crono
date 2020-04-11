@@ -12,15 +12,10 @@ module Crono
   # Crono::CLI - The main class for the crono daemon exacutable `bin/crono`
   class CLI
     include Singleton
-    include Logging
-
-    PROCTITLES = [
-      proc { 'crono' },
-      proc { Crono::VERSION::STRING },
-      proc { |me, data| "[#{data['jobs']} jobs in queue]" },
-    ]
+    include Util
 
     attr_accessor :config
+    attr_accessor :launcher
 
     def initialize
       self.config = Config.new
@@ -29,29 +24,46 @@ module Crono
     end
 
 
-    def run(argv)
-      parse_options(argv)
+    def parse(args = ARGV)
+      parse_options(args)
+      initialize_logger
+    end
+
+
+    def run
+      self_read, self_write = IO.pipe
+
+      sigs = %w[INT TERM]
+      sigs.each do |sig|
+        trap sig do
+          self_write.puts(sig)
+        end
+      rescue ArgumentError
+        puts "Signal #{sig} not supported"
+      end
 
       load_rails
 
       Cronotab.process(File.expand_path(config.cronotab))
-
-      print_banner
 
       unless have_jobs?
         logger.error "You have no jobs in you cronotab file #{config.cronotab}"
         return
       end
 
-      start_working_loop
+      print_banner
+
+      fire_event(:startup, reraise: true)
+
+      launch(self_read)
     end
 
 
     private
 
 
-      def parse_options(argv)
-        @argv = OptionParser.new do |opts|
+      def parse_options(args)
+        parser = OptionParser.new do |opts|
           opts.banner = 'Usage: crono [options]'
 
           opts.on('-C', '--cronotab PATH', "Path to cronotab file (Default: #{config.cronotab})") do |cronotab|
@@ -61,7 +73,18 @@ module Crono
           opts.on '-e', '--environment ENV', "Application environment (Default: #{config.environment})" do |env|
             config.environment = env
           end
-        end.parse!(argv)
+
+          opts.on '-v', '--verbose', 'Print more verbose output' do |verbose|
+            config.verbose = verbose.nil? ? true : verbose
+          end
+        end
+        parser.parse!(args)
+        parser
+      end
+
+
+      def initialize_logger
+        Crono.logger.level = ::Logger::DEBUG if config.verbose
       end
 
 
@@ -91,39 +114,38 @@ module Crono
       end
 
 
-      def start_working_loop
-        fire_event(:startup, reraise: true)
-        loop do
-          next_time, jobs = Crono.scheduler.next_jobs
-          now = Time.zone.now
-          heartbeat(jobs.size)
-          sleep(next_time - now) if next_time > now
-          jobs.each(&:perform)
-        end
-      end
+      def launch(self_read)
+        @launcher = Crono::Launcher.new
 
+        begin
+          launcher.run
 
-      # Taken from Sidekiq
-      # See: https://github.com/mperham/sidekiq/blob/master/lib/sidekiq/util.rb#L52
-      def fire_event(event, options = {})
-        reverse = options[:reverse]
-        reraise = options[:reraise]
-
-        arr = config.lifecycle_events[event]
-        arr.reverse! if reverse
-        arr.each do |block|
-          begin
-            block.call
-          rescue ex => e
-            raise ex if reraise
+          while (readable_io = IO.select([self_read]))
+            signal = readable_io.first[0].gets.strip
+            handle_signal(signal)
           end
+        rescue Interrupt
+          logger.info "Shutting down"
+          fire_event(:shutdown, reverse: true)
+          launcher.stop
+          logger.info "Bye!"
+
+          exit(0)
         end
       end
 
 
-      def heartbeat(jobs)
-        data = { 'jobs' => jobs }
-        $0 = PROCTITLES.map { |proc| proc.call(self, data) }.compact.join(' ')
+      SIGNAL_HANDLERS = {
+        # Ctrl-C in terminal
+        "INT" => ->(cli) { raise Interrupt },
+        # TERM is the signal that Crono must exit.
+        # Heroku sends TERM and then waits 30 seconds for process to exit.
+        "TERM" => ->(cli) { raise Interrupt },
+      }
+
+      def handle_signal(sig)
+        logger.debug "Got #{sig} signal"
+        SIGNAL_HANDLERS[sig].call(self)
       end
 
   end
