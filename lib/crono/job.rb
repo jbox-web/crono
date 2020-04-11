@@ -6,7 +6,7 @@ require 'logger'
 module Crono
   # Crono::Job represents a Crono job
   class Job
-    include Logging
+    include Util
 
     attr_accessor :performer, :period, :job_args, :last_performed_at, :job_options,
                   :next_performed_at, :job_log, :job_logger, :healthy, :execution_interval
