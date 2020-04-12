@@ -18,7 +18,10 @@ def integrate_with_systemd(cli)
     Crono::SdNotify.stopping
   end
 
-  Crono.start_watchdog if Crono::SdNotify.watchdog?
+  if Crono::SdNotify.watchdog?
+    Crono.logger.debug 'Start systemd watchdog'
+    Crono.start_watchdog
+  end
 end
 
 begin
