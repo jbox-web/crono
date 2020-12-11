@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/github/license/jbox-web/crono.svg)](https://github.com/jbox-web/crono/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/jbox-web/crono.svg)](https://github.com/jbox-web/crono/releases/latest)
-[![Build Status](https://travis-ci.com/jbox-web/crono.svg?branch=master)](https://travis-ci.com/jbox-web/crono)
+[![CI](https://github.com/jbox-web/crono/workflows/CI/badge.svg)](https://github.com/jbox-web/crono/actions)
 [![Code Climate](https://codeclimate.com/github/jbox-web/crono/badges/gpa.svg)](https://codeclimate.com/github/jbox-web/crono)
 [![Test Coverage](https://codeclimate.com/github/jbox-web/crono/badges/coverage.svg)](https://codeclimate.com/github/jbox-web/crono/coverage)
 
