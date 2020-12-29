@@ -17,7 +17,7 @@ RSpec.describe 'rake' do
   describe 'crono:check' do
     it 'should check cronotab syntax' do
       ENV['CRONOTAB'] = File.expand_path('../../assets/bad_cronotab.rb', __FILE__)
-      expect { Rake::Task['crono:check'].invoke }.to raise_error
+      expect { Rake::Task['crono:check'].invoke }.to raise_error(RuntimeError).with_message("period should be at least 1 week to use 'on'")
     end
   end
 end

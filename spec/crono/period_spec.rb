@@ -17,12 +17,12 @@ RSpec.describe Crono::Period do
     context 'in weakly basis' do
       it "should raise error if 'on' is wrong" do
         expect { @period = Crono::Period.new(7.days, on: :bad_day) }
-          .to raise_error("Wrong 'on' day")
+          .to raise_error(RuntimeError).with_message("Wrong 'on' day")
       end
 
       it 'should raise error when period is less than 1 week' do
         expect { @period = Crono::Period.new(6.days, on: :monday) }
-          .to raise_error("period should be at least 1 week to use 'on'")
+          .to raise_error(RuntimeError).with_message("period should be at least 1 week to use 'on'")
       end
 
       it "should return a 'on' day" do
@@ -89,13 +89,13 @@ RSpec.describe Crono::Period do
       it "should raise error when 'at' is wrong" do
         expect {
           Crono::Period.new(2.days, at: 1)
-        }.to raise_error("Unknown 'at' format")
+        }.to raise_error(RuntimeError).with_message("Unknown 'at' format")
       end
 
       it 'should raise error when period is less than 1 day' do
         expect {
           Crono::Period.new(5.hours, at: '15:30')
-        }.to raise_error("period should be at least 1 day to use 'at' with specified hour")
+        }.to raise_error(RuntimeError).with_message("period should be at least 1 day to use 'at' with specified hour")
       end
 
       it 'should return time in relation to last time' do

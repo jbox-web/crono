@@ -14,7 +14,7 @@ RSpec.describe Crono::Cronotab do
       cronotab_path = File.expand_path('../assets/bad_cronotab.rb', __FILE__)
       expect {
         Crono::Cronotab.process(cronotab_path)
-      }.to raise_error
+      }.to raise_error(RuntimeError).with_message("period should be at least 1 week to use 'on'")
     end
   end
 end
