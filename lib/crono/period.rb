@@ -3,8 +3,7 @@
 module Crono
   # Period describe frequency of jobs
   class Period
-    DAYS = [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday,
-            :sunday]
+    DAYS = [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday]
 
     def initialize(period, at: nil, on: nil, within: nil)
       @period = period
