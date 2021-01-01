@@ -12,9 +12,9 @@ jobs:
       fail-fast: false
       matrix:
         ruby:
-          - 2.7.x
-          - 2.6.x
-          - 2.5.x
+          - '2.7'
+          - '2.6'
+          - '2.5'
         rails:
           - rails_5.2.4
           - rails_6.0.3
@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
 
