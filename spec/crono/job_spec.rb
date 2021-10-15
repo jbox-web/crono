@@ -53,11 +53,17 @@ RSpec.describe Crono::Job do
     it 'should execute twice' do
       job.execution_interval = 0.minutes
 
-      test_preform_job_twice
+      expect(job).to receive(:perform_job).twice
+      job.perform.join
+      thread = job.perform.join
+      expect(thread).to be_stop
     end
 
     it 'should execute twice without initialize execution_interval' do
-      test_preform_job_twice
+      expect(job).to receive(:perform_job).twice
+      job.perform.join
+      thread = job.perform.join
+      expect(thread).to be_stop
     end
 
     it 'should call perform of performer' do
@@ -71,13 +77,6 @@ RSpec.describe Crono::Job do
       expect(TestJob).to receive(:new).and_return(test_job)
       expect(test_job).to receive(:perform).with({'some' => 'data'})
       thread = job_with_args.perform.join
-      expect(thread).to be_stop
-    end
-
-    def test_preform_job_twice
-      expect(job).to receive(:perform_job).twice
-      job.perform.join
-      thread = job.perform.join
       expect(thread).to be_stop
     end
   end

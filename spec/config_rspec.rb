@@ -2,8 +2,8 @@ RSpec.configure do |config|
   # Use DB agnostic schema by default
   load Rails.root.join('db', 'schema.rb').to_s
 
-  config.order = :random
-  Kernel.srand config.seed
+  # config.order = :random
+  # Kernel.srand config.seed
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
@@ -16,11 +16,11 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
-    Crono.scheduler = Crono::Scheduler.new
   end
 
   config.before(:each) do
     DatabaseCleaner.start
+    Crono.scheduler = Crono::Scheduler.new
   end
 
   config.after(:each) do

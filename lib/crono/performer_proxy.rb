@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# require internal dependencies
+require_relative 'job'
+require_relative 'period'
+
 module Crono
   # Crono::PerformerProxy is a proxy used in cronotab.rb semantic
   class PerformerProxy

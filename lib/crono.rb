@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 # require external dependencies
+require 'active_record'
 require 'active_support/all'
-require 'zeitwerk'
 
-# load lib files
-loader = Zeitwerk::Loader.for_gem
-generators = "#{__dir__}/generators"
-loader.ignore(generators)
-loader.inflector.inflect(
-  'cli' => 'CLI'
-)
-loader.setup
+# require internal dependencies
+require_relative 'crono/util'
+require_relative 'crono/config'
+require_relative 'crono/cronotab'
+require_relative 'crono/launcher'
+require_relative 'crono/performer_proxy'
+require_relative 'crono/scheduler'
+require_relative 'crono/version'
 
 module Crono
-  require 'crono/railtie' if defined?(Rails)
+  require_relative 'crono/engine' if defined?(Rails)
 
   mattr_accessor :logger
   mattr_accessor :scheduler

@@ -42,6 +42,13 @@ module Crono
         puts "Signal #{sig} not supported"
       end
 
+      # <dirty_patch>
+      # Require those files manually since they won't be loaded by Rails
+      # when running *bin/crono* command on app side
+      # </dirty_patch>
+      require_relative '../../app/models/crono/application_record'
+      require_relative '../../app/models/crono/crono_job'
+
       load_rails
 
       Cronotab.process(File.expand_path(config.cronotab))
