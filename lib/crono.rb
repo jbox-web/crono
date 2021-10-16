@@ -11,6 +11,7 @@ require_relative 'crono/cronotab'
 require_relative 'crono/launcher'
 require_relative 'crono/performer_proxy'
 require_relative 'crono/scheduler'
+require_relative 'crono/sd_notify'
 require_relative 'crono/version'
 
 module Crono
