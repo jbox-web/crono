@@ -23,8 +23,6 @@ RSpec.describe Crono::Job do
   end
 
   describe '#perform' do
-    after { job.send(:model).destroy }
-
     it 'should run performer in separate thread' do
       expect(job).to receive(:save)
       thread = job.perform.join

@@ -16,8 +16,6 @@ RSpec.describe Crono::Web do
     )
   end
 
-  after { @test_job.destroy }
-
   describe '/' do
     it 'should show all jobs' do
       get '/crono'

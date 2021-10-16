@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'zeitwerk'
 
   s.add_development_dependency 'appraisal'
+  s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'haml'
   s.add_development_dependency 'pry'
