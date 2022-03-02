@@ -8,7 +8,8 @@ module Crono
     attr_accessor :cronotab,
                   :environment,
                   :verbose,
-                  :lifecycle_events
+                  :lifecycle_events,
+                  :check_port
 
     def initialize
       self.cronotab = CRONOTAB
@@ -18,6 +19,7 @@ module Crono
         startup: [],
         shutdown: [],
       }
+      self.check_port = 9261
     end
 
     def on(event, &block)

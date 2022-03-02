@@ -81,6 +81,10 @@ module Crono
             config.environment = env
           end
 
+          opts.on '-p', '--port PORT', "UDP check port (Default: #{config.check_port})" do |port|
+            config.check_port = Integer(port)
+          end
+
           opts.on '-v', '--verbose', 'Print more verbose output' do |verbose|
             config.verbose = verbose.nil? ? true : verbose
           end
@@ -122,7 +126,7 @@ module Crono
 
 
       def launch(self_read)
-        @launcher = Crono::Launcher.new
+        @launcher = Crono::Launcher.new(check_port: config.check_port)
 
         begin
           launcher.run

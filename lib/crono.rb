@@ -3,6 +3,7 @@
 # require external dependencies
 require 'active_record'
 require 'active_support/all'
+require 'socket'
 
 # require internal dependencies
 require_relative 'crono/util'

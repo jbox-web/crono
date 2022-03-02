@@ -11,15 +11,18 @@ module Crono
     ]
 
 
-    def initialize
-      @heartbeat = nil
-      @poller    = nil
+    def initialize(check_port:)
+      @heartbeat  = nil
+      @poller     = nil
+      @socket     = nil
+      @check_port = check_port
     end
 
 
     def run
       @heartbeat = safe_thread('heartbeat', &method(:start_heartbeat))
       @poller    = safe_thread('poller', &method(:start_poller))
+      @socket    = safe_thread('socket', &method(:start_socket))
     end
 
 
@@ -29,6 +32,13 @@ module Crono
         @heartbeat = nil
         t.terminate
         logger.debug('Heartbeat stopped...')
+      end
+
+      if @socket
+        t = @socket
+        @socket = nil
+        t.terminate
+        logger.debug('Socket stopped...')
       end
 
       if @poller
@@ -69,6 +79,14 @@ module Crono
           end
 
           jobs.each(&:perform)
+        end
+      end
+
+
+      def start_socket
+        Socket.udp_server_loop(@check_port) do |msg, msg_src|
+          resp = msg.chomp == 'ping' ? "pong\n" : msg
+          msg_src.reply resp
         end
       end
 
