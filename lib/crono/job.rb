@@ -108,8 +108,8 @@ module Crono
 
     def log(message, severity = Logger::INFO)
       @semaphore.synchronize do
-        logger.log(severity, message) if logger
-        job_logger.log severity, message
+        logger.add(severity, message) if logger
+        job_logger.add(severity, message)
       end
     end
 

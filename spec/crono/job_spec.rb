@@ -146,8 +146,8 @@ RSpec.describe Crono::Job do
     it 'should write log messages to both common and job log' do
       message = 'Test message'
       job.logfile = "/dev/null"
-      expect(job.logger).to receive(:log).with(Logger::INFO, message)
-      expect(job.job_logger).to receive(:log).with(Logger::INFO, message)
+      expect(job.logger).to receive(:add).with(Logger::INFO, message)
+      expect(job.job_logger).to receive(:add).with(Logger::INFO, message)
       job.send(:log, message)
     end
 
