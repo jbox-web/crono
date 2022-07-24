@@ -5,9 +5,36 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
     <title>Crono Dashboard</title>
-    <%= stylesheet_link_tag 'crono/materialize.min.css', media: "all" %>
-    <%= stylesheet_link_tag 'crono/application', media: "all" %>
+    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css', media: "all" %>
     <%= csrf_meta_tags %>
+    <style>
+      nav {
+        position: relative;
+        z-index: 2;
+      }
+      nav .brand-logo {
+        font-size: 1.75em;
+        letter-spacing: -0.05em;
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+        padding: 20px;
+      }
+
+      main .page-footer {
+        margin: 0 -20px -20px -20px;
+      }
+
+      .page-footer > .footer-copyright {
+        padding: 20px;
+      }
+
+      .responsive-overflow {
+        overflow-x: auto;
+      }
+    </style>
   </head>
 
   <body class="blue-grey darken-2">
