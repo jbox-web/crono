@@ -3,12 +3,12 @@
 RAILS_VERSIONS = %w[
   6.0.6
   6.1.7
-  7.0.4
+  7.0.8
 ].freeze
 
 RAILS_VERSIONS.each do |version|
   appraise "rails_#{version}" do
     gem 'rails', version
-    gem 'sprockets-rails' if ['7.0.4'].include?(version)
+    gem 'sprockets-rails' if ['7.0.8'].include?(version)
   end
 end
