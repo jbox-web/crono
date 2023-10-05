@@ -10,6 +10,6 @@ coverage/
 
 # Ignore dummy app files
 spec/dummy/db/*.sqlite3
-spec/dummy/db/*.sqlite3-journal
+spec/dummy/db/*.sqlite3-*
 spec/dummy/log/*.log
 spec/dummy/tmp/
