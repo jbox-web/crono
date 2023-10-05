@@ -11,5 +11,6 @@ Bundler.require(*Rails.groups)
 
 module Dummy
   class Application < Rails::Application
+    config.load_defaults Rails::VERSION::STRING.to_f
   end
 end

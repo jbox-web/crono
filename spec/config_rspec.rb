@@ -1,3 +1,4 @@
+# Configure RSpec
 RSpec.configure do |config|
   # Use DB agnostic schema by default
   load Rails.root.join('db', 'schema.rb').to_s
@@ -8,6 +9,10 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  # disable monkey patching
+  # see: https://relishapp.com/rspec/rspec-core/v/3-8/docs/configuration/zero-monkey-patching-mode
+  config.disable_monkey_patching!
 
   config.mock_with :rspec do |mocks|
     mocks.allow_message_expectations_on_nil = false
@@ -26,8 +31,4 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
-  # disable monkey patching
-  # see: https://relishapp.com/rspec/rspec-core/v/3-8/docs/configuration/zero-monkey-patching-mode
-  config.disable_monkey_patching!
 end
