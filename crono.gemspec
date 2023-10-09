@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.bindir      = 'exe'
   s.executables = ['crono']
 
-  s.add_runtime_dependency 'rails', '>= 6.0'
+  s.add_runtime_dependency 'rails', '>= 6.1'
 
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'database_cleaner'
