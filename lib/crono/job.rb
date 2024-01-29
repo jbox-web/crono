@@ -50,7 +50,7 @@ module Crono
       @semaphore.synchronize do
         update_model
         clear_job_log
-        ActiveRecord::Base.clear_active_connections!
+        ActiveRecord::Base.connection_handler.clear_active_connections!
       end
     end
 
