@@ -38,9 +38,16 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sqlite3', '~> 1.4.0'
   s.add_development_dependency 'timecop'
 
-  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.1.0")
+  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.1.0')
     s.add_development_dependency 'net-imap'
     s.add_development_dependency 'net-pop'
     s.add_development_dependency 'net-smtp'
+  end
+
+  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.4.0')
+    s.add_development_dependency 'base64'
+    s.add_development_dependency 'bigdecimal'
+    s.add_development_dependency 'mutex_m'
+    s.add_development_dependency 'drb'
   end
 end
