@@ -49,5 +49,6 @@ Gem::Specification.new do |s|
     s.add_development_dependency 'bigdecimal'
     s.add_development_dependency 'mutex_m'
     s.add_development_dependency 'drb'
+    s.add_development_dependency 'logger'
   end
 end
