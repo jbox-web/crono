@@ -13,12 +13,12 @@ Gem::Specification.new do |s|
   s.description = 'A time-based background job scheduler daemon (just like Cron) for Rails'
   s.license     = 'Apache-2.0'
 
-  s.required_ruby_version = '>= 3.0.0'
+  s.required_ruby_version = '>= 3.1.0'
 
   s.files = `git ls-files`.split("\n")
 
   s.bindir      = 'exe'
   s.executables = ['crono']
 
-  s.add_dependency 'rails', '>= 6.1'
+  s.add_dependency 'rails', '>= 7.0'
 end
