@@ -3,7 +3,7 @@
 module Crono
   # Crono::Config stores Crono configuration
   class Config
-    CRONOTAB  = 'config/cronotab.rb'
+    CRONOTAB = 'config/cronotab.rb'
 
     attr_accessor :cronotab,
                   :environment,
@@ -24,8 +24,9 @@ module Crono
 
     def on(event, &block)
       raise ArgumentError, "Symbols only please: #{event}" unless event.is_a?(Symbol)
-      raise ArgumentError, "Invalid event name: #{event}" unless self.lifecycle_events.key?(event)
-      self.lifecycle_events[event] << block
+      raise ArgumentError, "Invalid event name: #{event}" unless lifecycle_events.key?(event)
+
+      lifecycle_events[event] << block
     end
   end
 end

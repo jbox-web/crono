@@ -8,7 +8,7 @@ module Crono
     PROCTITLES = [
       proc { 'crono' },
       proc { Crono::VERSION::STRING },
-    ]
+    ].freeze
 
 
     def initialize(check_port:)
@@ -19,14 +19,16 @@ module Crono
     end
 
 
+    # rubocop:disable Performance/MethodObjectAsBlock
     def run
       @heartbeat = safe_thread('heartbeat', &method(:start_heartbeat))
       @poller    = safe_thread('poller', &method(:start_poller))
       @socket    = safe_thread('socket', &method(:start_socket))
     end
+    # rubocop:enable Performance/MethodObjectAsBlock
 
 
-    def stop
+    def stop # rubocop:disable Metrics/MethodLength
       if @heartbeat
         t = @heartbeat
         @heartbeat = nil
@@ -41,7 +43,7 @@ module Crono
         logger.debug('Socket stopped...')
       end
 
-      if @poller
+      if @poller # rubocop:disable Style/GuardClause
         t = @poller
         @poller = nil
         t.terminate
@@ -63,7 +65,7 @@ module Crono
 
       def heartbeat
         logger.debug('Heartbeat check')
-        $0 = PROCTITLES.map { |proc| proc.call(self) }.compact.join(' ')
+        $0 = PROCTITLES.filter_map { |proc| proc.call(self) }.join(' ')
       end
 
 

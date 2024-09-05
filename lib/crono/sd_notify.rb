@@ -25,7 +25,7 @@
 # The only changes made was "rehoming" it within the Crono module to avoid
 # namespace collisions and applying standard's code formatting style.
 
-require "socket"
+require 'socket'
 
 # SdNotify is a pure-Ruby implementation of sd_notify(3). It can be used to
 # notify systemd about state changes. Methods of this package are no-op on
@@ -41,14 +41,14 @@ module Crono
     # Exception raised when there's an error writing to the notification socket
     class NotifyError < RuntimeError; end
 
-    READY     = "READY=1"
-    RELOADING = "RELOADING=1"
-    STOPPING  = "STOPPING=1"
-    STATUS    = "STATUS="
-    ERRNO     = "ERRNO="
-    MAINPID   = "MAINPID="
-    WATCHDOG  = "WATCHDOG=1"
-    FDSTORE   = "FDSTORE=1"
+    READY     = 'READY=1'
+    RELOADING = 'RELOADING=1'
+    STOPPING  = 'STOPPING=1'
+    STATUS    = 'STATUS='
+    ERRNO     = 'ERRNO='
+    MAINPID   = 'MAINPID='
+    WATCHDOG  = 'WATCHDOG=1'
+    FDSTORE   = 'FDSTORE=1'
 
     def self.ready(unset_env = false)
       notify(READY, unset_env)
@@ -95,9 +95,9 @@ module Crono
     #
     # @note Unlike sd_watchdog_enabled(3), this method does not mutate the
     #   environment.
-    def self.watchdog?
-      wd_usec = ENV["WATCHDOG_USEC"]
-      wd_pid = ENV["WATCHDOG_PID"]
+    def self.watchdog? # rubocop:disable Metrics/MethodLength
+      wd_usec = ENV.fetch('WATCHDOG_USEC', nil)
+      wd_pid = ENV.fetch('WATCHDOG_PID', nil)
 
       return false unless wd_usec
 
@@ -108,7 +108,7 @@ module Crono
       end
 
       return false if wd_usec <= 0
-      return true if !wd_pid || wd_pid == $$.to_s
+      return true if !wd_pid || wd_pid == $$.to_s # rubocop:disable Style/SpecialGlobalVars
 
       false
     end
@@ -130,12 +130,12 @@ module Crono
     #   socket
     #
     # @see https://www.freedesktop.org/software/systemd/man/sd_notify.html
-    def self.notify(state, unset_env = false)
-      sock = ENV["NOTIFY_SOCKET"]
+    def self.notify(state, unset_env = false) # rubocop:disable Metrics/MethodLength
+      sock = ENV.fetch('NOTIFY_SOCKET', nil)
 
       return nil unless sock
 
-      ENV.delete("NOTIFY_SOCKET") if unset_env
+      ENV.delete('NOTIFY_SOCKET') if unset_env
 
       begin
         Addrinfo.unix(sock, :DGRAM).connect do |s|

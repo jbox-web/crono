@@ -14,7 +14,7 @@ module Crono
         when Hash   then Time.zone.now.change(value).utc
         when Time   then value.utc
         else
-          fail "Unknown TimeOfDay format: #{value.inspect}"
+          raise "Unknown TimeOfDay format: #{value.inspect}"
         end
       new time.hour, time.min
     end
@@ -25,11 +25,11 @@ module Crono
     end
 
     def to_i
-      @hour * 60 + @min
+      (@hour * 60) + @min
     end
 
     def to_s
-      '%02d:%02d' % [@hour, @min]
+      format('%02d:%02d', @hour, @min) # rubocop:disable Style/FormatStringToken
     end
 
     def <=>(other)

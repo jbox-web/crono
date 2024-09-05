@@ -15,14 +15,15 @@ module Crono
         when Hash   then value.values_at(:from, :to)
         when String then value.split('-')
         else
-          fail "Unknown interval format: #{value.inspect}"
+          raise "Unknown interval format: #{value.inspect}"
         end
       from, to = from_to.map { |v| TimeOfDay.parse(v) }
       new from, to
     end
 
     def initialize(from, to)
-      @from, @to = from, to
+      @from = from
+      @to = to
     end
 
     def within?(value)
@@ -35,9 +36,10 @@ module Crono
     end
 
     def next_within(time, period)
-      begin
+      loop do
         time = period.since(time)
-      end until within? TimeOfDay.parse(time)
+        break if within?(TimeOfDay.parse(time))
+      end
       time
     end
 

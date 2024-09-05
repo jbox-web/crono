@@ -25,9 +25,9 @@ module Crono
     PerformerProxy.new(performer, Crono.scheduler, job_args)
   end
 
-  def self.start_watchdog
-    usec = Integer(ENV["WATCHDOG_USEC"])
-    return Crono.logger.error("systemd Watchdog too fast: " + usec) if usec < 1_000_000
+  def self.start_watchdog # rubocop:disable Metrics/MethodLength
+    usec = Integer(ENV.fetch('WATCHDOG_USEC', nil))
+    return Crono.logger.error("systemd Watchdog too fast: #{usec}") if usec < 1_000_000
 
     sec_f = usec / 1_000_000.0
     # "It is recommended that a daemon sends a keep-alive notification message

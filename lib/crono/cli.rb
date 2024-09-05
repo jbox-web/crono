@@ -14,12 +14,11 @@ module Crono
     include Singleton
     include Util
 
-    attr_accessor :config
-    attr_accessor :launcher
+    attr_accessor :config, :launcher
 
     def initialize
       self.config = Config.new
-      self.logfile = STDOUT
+      self.logfile = $stdout
       Crono.scheduler = Scheduler.new
     end
 
@@ -30,7 +29,7 @@ module Crono
     end
 
 
-    def run
+    def run # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       self_read, self_write = IO.pipe
 
       sigs = %w[INT TERM]
@@ -69,7 +68,7 @@ module Crono
     private
 
 
-      def parse_options(args)
+      def parse_options(args) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         parser = OptionParser.new do |opts|
           opts.banner = 'Usage: crono [options]'
 
@@ -114,32 +113,31 @@ module Crono
 
         logger.info 'Jobs:'
         Crono.scheduler.jobs.each do |job|
-          logger.info "'#{job.performer}' with rule '#{job.period.description}'"\
-                      " next time will perform at #{job.next}"
+          logger.info "'#{job.performer}' with rule '#{job.period.description}' next time will perform at #{job.next}"
         end
       end
 
 
-      def have_jobs?
+      def have_jobs? # rubocop:disable Naming/PredicateName
         Crono.scheduler.jobs.present?
       end
 
 
-      def launch(self_read)
+      def launch(self_read) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         @launcher = Crono::Launcher.new(check_port: config.check_port)
 
         begin
           launcher.run
 
-          while (readable_io = IO.select([self_read]))
+          while (readable_io = IO.select([self_read])) # rubocop:disable Lint/IncompatibleIoSelectWithFiberScheduler
             signal = readable_io.first[0].gets.strip
             handle_signal(signal)
           end
         rescue Interrupt
-          logger.info "Shutting down"
+          logger.info 'Shutting down'
           fire_event(:shutdown, reverse: true)
           launcher.stop
-          logger.info "Bye!"
+          logger.info 'Bye!'
 
           exit(0)
         end
@@ -148,11 +146,11 @@ module Crono
 
       SIGNAL_HANDLERS = {
         # Ctrl-C in terminal
-        "INT" => ->(cli) { raise Interrupt },
+        'INT' => ->(_cli) { raise Interrupt },
         # TERM is the signal that Crono must exit.
         # Heroku sends TERM and then waits 30 seconds for process to exit.
-        "TERM" => ->(cli) { raise Interrupt },
-      }
+        'TERM' => ->(_cli) { raise Interrupt },
+      }.freeze
 
       def handle_signal(sig)
         logger.debug "Got #{sig} signal"

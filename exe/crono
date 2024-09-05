@@ -3,7 +3,7 @@
 
 require 'crono/cli'
 
-def integrate_with_systemd(cli)
+def integrate_with_systemd(cli) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   return unless ENV['NOTIFY_SOCKET']
 
   Crono.logger.info 'Enabling systemd notification integration'
@@ -18,12 +18,13 @@ def integrate_with_systemd(cli)
     Crono::SdNotify.stopping
   end
 
-  if Crono::SdNotify.watchdog?
+  if Crono::SdNotify.watchdog? # rubocop:disable Style/GuardClause
     Crono.logger.debug 'Start systemd watchdog'
     Crono.start_watchdog
   end
 end
 
+# rubocop:disable Style/StderrPuts
 begin
   cli = Crono::CLI.instance
   cli.parse
@@ -33,7 +34,9 @@ begin
   cli.run
 rescue => e
   raise e if $DEBUG
-  STDERR.puts e.message
-  STDERR.puts e.backtrace.join("\n")
+
+  $stderr.puts e.message
+  $stderr.puts e.backtrace.join("\n")
   exit 1
 end
+# rubocop:enable Style/StderrPuts

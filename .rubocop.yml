@@ -3,34 +3,71 @@ require:
   - rubocop-performance
   - rubocop-rake
   - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.1
   Exclude:
     - bin/*
-    - lib/generators/**/*.rb
     - gemfiles/*
     - spec/**/*
-    - examples/*
+    - lib/generators/**/*.rb
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+#########
+# STYLE #
+#########
 
 Style/Documentation:
   Enabled: false
 
-Lint/RaiseException:
-  Enabled: true
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
 
-Lint/StructNewOverride:
-  Enabled: true
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
 
-Style/HashEachMethods:
-  Enabled: true
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
 
-Style/HashTransformKeys:
-  Enabled: true
+Style/OptionalBooleanParameter:
+  Exclude:
+    - lib/crono/sd_notify.rb
 
-Style/HashTransformValues:
-  Enabled: true
+Style/RescueStandardError:
+  Enabled: false
+
+##########
+# LAYOUT #
+##########
 
 Layout/LineLength:
-  Max: 110
+  Max: 125
+
+Layout/EmptyLines:
+  Enabled: false
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+
+##########
+# NAMING #
+##########
+
+Naming/BlockForwarding:
+  Enabled: false
