@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is an example of a good cronotab for tests
 
 class TestJob

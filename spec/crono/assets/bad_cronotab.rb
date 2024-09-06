@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is an example of a bad cronotab for tests
 
 class TestJob

@@ -24,16 +24,15 @@ require_relative 'config_rspec'
 
 # setting default time zone
 # In Rails project, Time.zone_default equals "UTC"
-Time.zone_default = Time.find_zone("UTC")
+Time.zone_default = Time.find_zone('UTC')
 # ActiveRecord::Base.logger = Logger.new(STDOUT)
 
 class TestJob
-  def perform
-  end
+  def perform; end
 end
 
 class TestFailingJob
   def perform
-    fail 'Some error'
+    raise 'Some error'
   end
 end

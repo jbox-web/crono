@@ -11,7 +11,7 @@ AllCops:
   Exclude:
     - bin/*
     - gemfiles/*
-    - spec/**/*
+    - spec/dummy/**/*
     - lib/generators/**/*.rb
 
 Gemspec/RequireMFA:
@@ -39,6 +39,9 @@ Style/OptionalBooleanParameter:
 
 Style/RescueStandardError:
   Enabled: false
+
+Style/BlockDelimiters:
+  AllowedPatterns: ['expect']
 
 ##########
 # LAYOUT #
@@ -71,3 +74,25 @@ Layout/IndentationConsistency:
 
 Naming/BlockForwarding:
   Enabled: false
+
+#########
+# RSPEC #
+#########
+
+RSpec/ExampleLength:
+  Max: 12
+
+RSpec/MultipleExpectations:
+  Max: 8
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/StubbedMock:
+  Enabled: false
+
+RSpec/NotToNot:
+  EnforcedStyle: to_not
