@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails/generators'
 require 'rails/generators/migration'
 require 'rails/generators/active_record'
@@ -13,27 +15,18 @@ module Crono
       end
 
       desc 'Installs crono and generates the necessary configuration files'
-      source_root File.expand_path('../templates', __FILE__)
+      source_root File.expand_path('templates', __dir__)
 
       def copy_config
         template 'cronotab.rb.erb', 'config/cronotab.rb'
       end
 
       def create_migrations
-        migration_template 'migrations/create_crono_jobs.rb',
+        migration_template 'migrations/create_crono_jobs.rb.erb',
                            'db/migrate/create_crono_jobs.rb',
-                           migration_version: migration_version
+                           migration_version: "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
       end
 
-      def rails5?
-        Rails.version.start_with? '5'
-      end
-
-      def migration_version
-        if rails5?
-          "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
-        end
-      end
     end
   end
 end
