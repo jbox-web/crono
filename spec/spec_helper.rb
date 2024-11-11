@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-require 'timecop'
-require 'rack/test'
 
 # Start SimpleCov
 SimpleCov.start do
@@ -15,9 +13,6 @@ require File.expand_path('dummy/config/environment.rb', __dir__)
 
 # Load test gems
 require 'rspec/rails'
-
-# Load DatabaseCleaner
-require 'database_cleaner'
 
 # Load our own config
 require_relative 'config_rspec'
