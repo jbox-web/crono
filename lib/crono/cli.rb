@@ -85,7 +85,7 @@ module Crono
           end
 
           opts.on '-v', '--verbose', 'Print more verbose output' do |verbose|
-            config.verbose = verbose.nil? ? true : verbose
+            config.verbose = verbose.nil? || verbose
           end
         end
         parser.parse!(args)
@@ -151,6 +151,7 @@ module Crono
         # Heroku sends TERM and then waits 30 seconds for process to exit.
         'TERM' => ->(_cli) { raise Interrupt },
       }.freeze
+      private_constant :SIGNAL_HANDLERS
 
       def handle_signal(sig)
         logger.debug "Got #{sig} signal"
