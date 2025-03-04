@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
     'lib/**/*.rb',
     'lib/**/*.erb',
     'lib/**/*.rake',
-    'exe/*.rb',
+    'exe/*',
     'app/**/*.rb',
     'app/**/*.erb'
   ]
