@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = 'A time-based background job scheduler daemon (just like Cron) for Rails'
   s.license     = 'Apache-2.0'
 
-  s.required_ruby_version = '>= 3.1.0'
+  s.required_ruby_version = '>= 3.2.0'
 
   s.files = Dir[
     'README.md',
