@@ -118,7 +118,7 @@ module Crono
       end
 
 
-      def have_jobs? # rubocop:disable Naming/PredicateName
+      def have_jobs? # rubocop:disable Naming/PredicatePrefix
         Crono.scheduler.jobs.present?
       end
 
