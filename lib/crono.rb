@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
+# require ruby dependencies
+require 'optparse'
+require 'socket'
+require 'stringio'
+require 'logger'
+
 # require external dependencies
 require 'active_record'
 require 'active_support/all'
-require 'socket'
+require 'zeitwerk'
 
-# require internal dependencies
-require_relative 'crono/util'
-require_relative 'crono/config'
-require_relative 'crono/cronotab'
-require_relative 'crono/launcher'
-require_relative 'crono/performer_proxy'
-require_relative 'crono/scheduler'
-require_relative 'crono/sd_notify'
-require_relative 'crono/version'
+# load zeitwerk
+Zeitwerk::Loader.for_gem.tap do |loader|
+  loader.ignore("#{__dir__}/generators")
+  loader.inflector.inflect('cli' => 'CLI')
+  loader.setup
+end
 
 module Crono
   require_relative 'crono/engine' if defined?(Rails)

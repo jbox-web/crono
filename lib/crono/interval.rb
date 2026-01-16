@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# require internal dependencies
-require_relative 'time_of_day'
-
 module Crono
   # Interval describes a period between two specific times of day
   class Interval

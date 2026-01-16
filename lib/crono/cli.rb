@@ -2,15 +2,9 @@
 
 Thread.abort_on_exception = true
 
-# require external dependencies
-require 'optparse'
-
-# require ourself
-require 'crono'
-
 module Crono
   # Crono::CLI - The main class for the crono daemon exacutable `bin/crono`
-  class CLI
+  class CLI # rubocop:disable Metrics/ClassLength
     include Singleton
     include Util
 
@@ -62,6 +56,28 @@ module Crono
       fire_event(:startup, reraise: true)
 
       launch(self_read)
+    end
+
+
+    def integrate_with_systemd # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+      return unless ENV['NOTIFY_SOCKET']
+
+      Crono.logger.info 'Enabling systemd notification integration'
+
+      cli.config.on(:startup) do
+        Crono.logger.debug 'Emit systemd startup event'
+        Crono::SdNotify.ready
+      end
+
+      cli.config.on(:shutdown) do
+        Crono.logger.debug 'Emit systemd shutdown event'
+        Crono::SdNotify.stopping
+      end
+
+      if Crono::SdNotify.watchdog? # rubocop:disable Style/GuardClause
+        Crono.logger.debug 'Start systemd watchdog'
+        Crono.start_watchdog
+      end
     end
 
 

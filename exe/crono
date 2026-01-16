@@ -1,36 +1,13 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'crono/cli'
-
-def integrate_with_systemd(cli) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  return unless ENV['NOTIFY_SOCKET']
-
-  Crono.logger.info 'Enabling systemd notification integration'
-
-  cli.config.on(:startup) do
-    Crono.logger.debug 'Emit systemd startup event'
-    Crono::SdNotify.ready
-  end
-
-  cli.config.on(:shutdown) do
-    Crono.logger.debug 'Emit systemd shutdown event'
-    Crono::SdNotify.stopping
-  end
-
-  if Crono::SdNotify.watchdog? # rubocop:disable Style/GuardClause
-    Crono.logger.debug 'Start systemd watchdog'
-    Crono.start_watchdog
-  end
-end
+require_relative '../lib/crono'
 
 # rubocop:disable Style/StderrPuts
 begin
   cli = Crono::CLI.instance
   cli.parse
-
-  integrate_with_systemd(cli)
-
+  cli.integrate_with_systemd
   cli.run
 rescue => e
   raise e if $DEBUG

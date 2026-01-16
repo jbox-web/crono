@@ -25,8 +25,6 @@
 # The only changes made was "rehoming" it within the Crono module to avoid
 # namespace collisions and applying standard's code formatting style.
 
-require 'socket'
-
 # SdNotify is a pure-Ruby implementation of sd_notify(3). It can be used to
 # notify systemd about state changes. Methods of this package are no-op on
 # non-systemd systems (eg. Darwin).

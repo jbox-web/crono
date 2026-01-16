@@ -30,5 +30,7 @@ Gem::Specification.new do |s|
   s.bindir      = 'exe'
   s.executables = ['crono']
 
+  s.add_dependency 'optparse'
   s.add_dependency 'rails', '>= 7.0'
+  s.add_dependency 'zeitwerk'
 end

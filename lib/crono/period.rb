@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# require internal dependencies
-require_relative 'interval'
-
 module Crono
   # Period describe frequency of jobs
   class Period

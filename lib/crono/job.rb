@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-# require external dependencies
-require 'stringio'
-require 'logger'
-
 module Crono
   # Crono::Job represents a Crono job
   class Job # rubocop:disable Metrics/ClassLength
