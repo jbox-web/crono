@@ -24,12 +24,4 @@ require_relative 'config_rspec'
 Time.zone_default = Time.find_zone('UTC')
 # ActiveRecord::Base.logger = Logger.new(STDOUT)
 
-class TestJob
-  def perform; end
-end
-
-class TestFailingJob
-  def perform
-    raise 'Some error'
-  end
-end
+require_relative 'support/models'

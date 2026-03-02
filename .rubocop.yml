@@ -42,6 +42,10 @@ Style/RescueStandardError:
 Style/BlockDelimiters:
   AllowedPatterns: ['expect']
 
+Style/OneClassPerFile:
+  Exclude:
+    - spec/support/models.rb
+
 ##########
 # LAYOUT #
 ##########
