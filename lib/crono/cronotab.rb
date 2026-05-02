@@ -7,7 +7,7 @@ module Crono
                         File.join(Rails.root, Config::CRONOTAB))
       raise 'No cronotab defined' unless cronotab_path
 
-      require cronotab_path
+      load cronotab_path
     end
   end
 end
